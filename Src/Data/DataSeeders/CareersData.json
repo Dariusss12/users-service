@@ -1,0 +1,154 @@
+[
+    {
+      "Id": 1,
+      "Name": "Arquitectura"
+    },
+    {
+      "Id": 2,
+      "Name": "Ingeniería Civil"
+    },
+    {
+      "Id": 3,
+      "Name": "Ingeniería Civil en Gestión de la Construcción"
+    },
+    {
+      "Id": 4,
+      "Name": "Ingeniería Civil Plan Común"
+    },
+    {
+      "Id": 5,
+      "Name": "Ingeniería en Construcción"
+    },
+    {
+      "Id": 6,
+      "Name": "Analista Químico"
+    },
+    {
+      "Id": 7,
+      "Name": "Geología"
+    },
+    {
+      "Id": 8,
+      "Name": "Licenciatura en Física con mención en Astronomía"
+    },
+    {
+      "Id": 9,
+      "Name": "Licenciatura en Matemática"
+    },
+    {
+      "Id": 10,
+      "Name": "Química Industrial"
+    },
+    {
+      "Id": 11,
+      "Name": "Contador Auditor - Contador Público Diurno"
+    },
+    {
+      "Id": 12,
+      "Name": "Contador Auditor - Contador Público Vespertino"
+    },
+    {
+      "Id": 13,
+      "Name": "Ingeniería Comercial"
+    },
+    {
+      "Id": 14,
+      "Name": "Ingeniería en Información y Control de Gestión"
+    },
+    {
+      "Id": 15,
+      "Name": "Derecho"
+    },
+    {
+      "Id": 16,
+      "Name": "Periodismo"
+    },
+    {
+      "Id": 17,
+      "Name": "Psicología"
+    },
+    {
+      "Id": 18,
+      "Name": "Ingeniería Civil Ambiental"
+    },
+    {
+      "Id": 19,
+      "Name": "Ingeniería Civil de Minas"
+    },
+    {
+      "Id": 20,
+      "Name": "Ingeniería Civil Electrónica"
+    },
+    {
+      "Id": 21,
+      "Name": "Ingeniería Civil en Energía"
+    },
+    {
+      "Id": 22,
+      "Name": "Ingeniería Civil Industrial"
+    },
+    {
+      "Id": 23,
+      "Name": "Ingeniería Civil Metalúrgica"
+    },
+    {
+      "Id": 24,
+      "Name": "Ingeniería Civil Plan Común"
+    },
+    {
+      "Id": 25,
+      "Name": "Ingeniería Civil Química"
+    },
+    {
+      "Id": 26,
+      "Name": "Ingeniería en Metalurgia"
+    },
+    {
+      "Id": 27,
+      "Name": "Química Industrial"
+    },
+    {
+      "Id": 28,
+      "Name": "Pedagogía en Educación Básica con Especialización"
+    },
+    {
+      "Id": 29,
+      "Name": "Pedagogía en Educación Diferencial con Mención en Desarrollo Emocional y Cognitivo"
+    },
+    {
+      "Id": 30,
+      "Name": "Pedagogía en Educación Parvularia con Mención en Desarrollo Emocional y Cognitivo"
+    },
+    {
+      "Id": 31,
+      "Name": "Pedagogía en Inglés"
+    },
+    {
+      "Id": 32,
+      "Name": "Pedagogía en Matemática en Educación Media"
+    },
+    {
+      "Id": 33,
+      "Name": "Química y Farmacia"
+    },
+    {
+      "Id": 34,
+      "Name": "Ingeniería Civil Electrónica"
+    },
+    {
+      "Id": 35,
+      "Name": "Ingeniería Civil en Computación e Informática"
+    },
+    {
+      "Id": 36,
+      "Name": "Ingeniería Civil en Energía"
+    },
+    {
+      "Id": 37,
+      "Name": "Ingeniería Civil Plan Común"
+    },
+    {
+      "Id": 38,
+      "Name": "Ingeniería en Computación e Informática"
+    }
+]
