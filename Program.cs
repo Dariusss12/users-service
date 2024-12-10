@@ -13,8 +13,8 @@ var app = builder.Build();
 
 //app.UseAuthentication();
 //app.UseAuthorization();
-//app.MapGrpcService<UserServiceGrpc>();
-//app.MapGet("/", () => "Communication with gRPC!");
+app.MapGrpcService<UserServiceGrpc>();
+app.MapGet("/", () => "Communication with gRPC!");
 
 AppSeedService.SeedDatabase(app);
 
