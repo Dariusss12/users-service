@@ -13,8 +13,6 @@ namespace users_service.Src.Models
 
         public string Email { get; set; } = string.Empty;
 
-        public string Password { get; set; } = string.Empty;
-
         public int CareerId { get; set; }
 
         public Career Career { get; set; } = null!;

@@ -15,23 +15,10 @@ namespace users_service.Src.Services
             _userRepository = userRepository;
             _subjectRepository = subjectRepository;
         }
-        public async Task<UserDto> GetById(int id)
+        public async Task<User> GetById(int id)
         {
             var user = await _userRepository.GetUserById(id) ?? throw new Exception("User not found");
-            return new UserDto
-            {
-                Id = user.Id,
-                Name = user.Name,
-                FirstLastName = user.FirstLastName,
-                SecondLastName = user.SecondLastName,
-                Rut = user.Rut,
-                Email = user.Email,
-                Career = new CareerDto
-                {
-                    Id = user.Career.Id,
-                    Name = user.Career.Name
-                }
-            };
+            return user;
         }
 
         public async Task<bool> EditUser(int id, EditUserDto user)
