@@ -29,9 +29,9 @@ namespace users_service.Src.Repositories
                 return false;
             }
 
-            userToEdit.Name = user.Name ?? userToEdit.Name;
-            userToEdit.FirstLastName = user.FirstLastName ?? userToEdit.FirstLastName;
-            userToEdit.SecondLastName = user.SecondLastName ?? userToEdit.SecondLastName;
+            userToEdit.Name = !string.IsNullOrEmpty(user.Name) ? user.Name : userToEdit.Name;
+            userToEdit.FirstLastName = !string.IsNullOrEmpty(user.FirstLastName) ? user.FirstLastName : userToEdit.FirstLastName;
+            userToEdit.SecondLastName = !string.IsNullOrEmpty(user.SecondLastName) ? user.SecondLastName : userToEdit.SecondLastName;
 
             _context.Users.Update(userToEdit);
             await _context.SaveChangesAsync();

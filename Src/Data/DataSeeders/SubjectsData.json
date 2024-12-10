@@ -1,154 +1,238 @@
 [
-    {
-      "Id": 1,
-      "Name": "Arquitectura"
-    },
-    {
-      "Id": 2,
-      "Name": "Ingeniería Civil"
-    },
-    {
-      "Id": 3,
-      "Name": "Ingeniería Civil en Gestión de la Construcción"
-    },
-    {
-      "Id": 4,
-      "Name": "Ingeniería Civil Plan Común"
-    },
-    {
-      "Id": 5,
-      "Name": "Ingeniería en Construcción"
-    },
-    {
-      "Id": 6,
-      "Name": "Analista Químico"
-    },
-    {
-      "Id": 7,
-      "Name": "Geología"
-    },
-    {
-      "Id": 8,
-      "Name": "Licenciatura en Física con mención en Astronomía"
-    },
-    {
-      "Id": 9,
-      "Name": "Licenciatura en Matemática"
-    },
-    {
-      "Id": 10,
-      "Name": "Química Industrial"
-    },
-    {
-      "Id": 11,
-      "Name": "Contador Auditor - Contador Público Diurno"
-    },
-    {
-      "Id": 12,
-      "Name": "Contador Auditor - Contador Público Vespertino"
-    },
-    {
-      "Id": 13,
-      "Name": "Ingeniería Comercial"
-    },
-    {
-      "Id": 14,
-      "Name": "Ingeniería en Información y Control de Gestión"
-    },
-    {
-      "Id": 15,
-      "Name": "Derecho"
-    },
-    {
-      "Id": 16,
-      "Name": "Periodismo"
-    },
-    {
-      "Id": 17,
-      "Name": "Psicología"
-    },
-    {
-      "Id": 18,
-      "Name": "Ingeniería Civil Ambiental"
-    },
-    {
-      "Id": 19,
-      "Name": "Ingeniería Civil de Minas"
-    },
-    {
-      "Id": 20,
-      "Name": "Ingeniería Civil Electrónica"
-    },
-    {
-      "Id": 21,
-      "Name": "Ingeniería Civil en Energía"
-    },
-    {
-      "Id": 22,
-      "Name": "Ingeniería Civil Industrial"
-    },
-    {
-      "Id": 23,
-      "Name": "Ingeniería Civil Metalúrgica"
-    },
-    {
-      "Id": 24,
-      "Name": "Ingeniería Civil Plan Común"
-    },
-    {
-      "Id": 25,
-      "Name": "Ingeniería Civil Química"
-    },
-    {
-      "Id": 26,
-      "Name": "Ingeniería en Metalurgia"
-    },
-    {
-      "Id": 27,
-      "Name": "Química Industrial"
-    },
-    {
-      "Id": 28,
-      "Name": "Pedagogía en Educación Básica con Especialización"
-    },
-    {
-      "Id": 29,
-      "Name": "Pedagogía en Educación Diferencial con Mención en Desarrollo Emocional y Cognitivo"
-    },
-    {
-      "Id": 30,
-      "Name": "Pedagogía en Educación Parvularia con Mención en Desarrollo Emocional y Cognitivo"
-    },
-    {
-      "Id": 31,
-      "Name": "Pedagogía en Inglés"
-    },
-    {
-      "Id": 32,
-      "Name": "Pedagogía en Matemática en Educación Media"
-    },
-    {
-      "Id": 33,
-      "Name": "Química y Farmacia"
-    },
-    {
-      "Id": 34,
-      "Name": "Ingeniería Civil Electrónica"
-    },
-    {
-      "Id": 35,
-      "Name": "Ingeniería Civil en Computación e Informática"
-    },
-    {
-      "Id": 36,
-      "Name": "Ingeniería Civil en Energía"
-    },
-    {
-      "Id": 37,
-      "Name": "Ingeniería Civil Plan Común"
-    },
-    {
-      "Id": 38,
-      "Name": "Ingeniería en Computación e Informática"
-    }
+  {
+      "id": 1,
+      "code": "IAF-001"
+  },
+  {
+      "id": 2,
+      "code": "CAL-001"
+  },
+  {
+      "id": 3,
+      "code": "ALG-001"
+  },
+  {
+      "id": 4,
+      "code": "IUE-001"
+  },
+  {
+      "id": 5,
+      "code": "ING-001"
+  },
+  {
+      "id": 6,
+      "code": "FGE-001"
+  },
+  {
+      "id": 7,
+      "code": "PII-001"
+  },
+  {
+      "id": 8,
+      "code": "MEC-001"
+  },
+  {
+      "id": 9,
+      "code": "CAL-002"
+  },
+  {
+      "id": 10,
+      "code": "ALG-002"
+  },
+  {
+      "id": 11,
+      "code": "PRG-001"
+  },
+  {
+      "id": 12,
+      "code": "COE-001"
+  },
+  {
+      "id": 13,
+      "code": "ING-002"
+  },
+  {
+      "id": 14,
+      "code": "ECD-001"
+  },
+  {
+      "id": 15,
+      "code": "CAL-003"
+  },
+  {
+      "id": 16,
+      "code": "QMC-001"
+  },
+  {
+      "id": 17,
+      "code": "POO-001"
+  },
+  {
+      "id": 18,
+      "code": "TPA-001"
+  },
+  {
+      "id": 19,
+      "code": "COE-002"
+  },
+  {
+      "id": 20,
+      "code": "DFC-001"
+  },
+  {
+      "id": 21,
+      "code": "ELM-001"
+  },
+  {
+      "id": 22,
+      "code": "EST-001"
+  },
+  {
+      "id": 23,
+      "code": "IDS-001"
+  },
+  {
+      "id": 24,
+      "code": "EPR-001"
+  },
+  {
+      "id": 25,
+      "code": "EDD-001"
+  },
+  {
+      "id": 26,
+      "code": "PDI-001"
+  },
+  {
+      "id": 27,
+      "code": "ELT-001"
+  },
+  {
+      "id": 28,
+      "code": "ICD-001"
+  },
+  {
+      "id": 29,
+      "code": "DSD-001"
+  },
+  {
+      "id": 30,
+      "code": "BDD-001"
+  },
+  {
+      "id": 31,
+      "code": "EPF-001"
+  },
+  {
+      "id": 32,
+      "code": "PPA-001"
+  },
+  {
+      "id": 33,
+      "code": "AOC-001"
+  },
+  {
+      "id": 34,
+      "code": "FDC-001"
+  },
+  {
+      "id": 35,
+      "code": "IWM-001"
+  },
+  {
+      "id": 36,
+      "code": "ISW-001"
+  },
+  {
+      "id": 37,
+      "code": "EPF-002"
+  },
+  {
+      "id": 38,
+      "code": "PSW-001"
+  },
+  {
+      "id": 39,
+      "code": "SDI-001"
+  },
+  {
+      "id": 40,
+      "code": "LDP-001"
+  },
+  {
+      "id": 41,
+      "code": "DAA-001"
+  },
+  {
+      "id": 42,
+      "code": "SOP-001"
+  },
+  {
+      "id": 43,
+      "code": "EPF-003"
+  },
+  {
+      "id": 44,
+      "code": "DFC-002"
+  },
+  {
+      "id": 45,
+      "code": "PPF-001"
+  },
+  {
+      "id": 46,
+      "code": "SDI-002"
+  },
+  {
+      "id": 47,
+      "code": "GPT-001"
+  },
+  {
+      "id": 48,
+      "code": "ADS-001"
+  },
+  {
+      "id": 49,
+      "code": "RDC-001"
+  },
+  {
+      "id": 50,
+      "code": "EPF-004"
+  },
+  {
+      "id": 51,
+      "code": "EMP-001"
+  },
+  {
+      "id": 52,
+      "code": "PGT-001"
+  },
+  {
+      "id": 53,
+      "code": "EPT-001"
+  },
+  {
+      "id": 54,
+      "code": "EPF-005"
+  },
+  {
+      "id": 55,
+      "code": "EPF-006"
+  },
+  {
+      "id": 56,
+      "code": "EPF-007"
+  },
+  {
+      "id": 57,
+      "code": "EPF-008"
+  },
+  {
+      "id": 58,
+      "code": "EPF-009"
+  },
+  {
+      "id": 59,
+      "code": "CPP-001"
+  }
 ]

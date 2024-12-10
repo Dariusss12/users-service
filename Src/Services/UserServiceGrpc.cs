@@ -59,8 +59,8 @@ public class UserServiceGrpc : UserService.UserServiceBase
     {
         await _userService.SetUserProgress(new UpdateUserProgressDto
         {
-            AddSubjects = request.AddSubjects.ToList(),
-            DeleteSubjects = request.DeleteSubjects.ToList()
+            AddSubjects = [.. request.AddSubjects],
+            DeleteSubjects = [.. request.DeleteSubjects]
         }, request.UserId);
 
         return new SetUserProgressResponse { Success = true };
