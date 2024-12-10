@@ -1,4 +1,5 @@
 using users_service.Src.DTOs;
+using users_service.Src.Helpers;
 using users_service.Src.Models;
 using users_service.Src.Repositories.Interfaces;
 using users_service.Src.Services.Interfaces;
@@ -17,7 +18,7 @@ namespace users_service.Src.Services
         }
         public async Task<User> GetById(int id)
         {
-            var user = await _userRepository.GetUserById(id) ?? throw new Exception("User not found");
+            var user = await _userRepository.GetUserById(id) ?? throw new NotFoundException("User not found");
             return user;
         }
 
@@ -28,7 +29,7 @@ namespace users_service.Src.Services
 
         public async Task<List<UserProgressDto>> GetProgressByUser(int userId)
         {
-            var userProgress = await _userRepository.GetProgressByUser(userId) ?? throw new Exception("User progress not found");
+            var userProgress = await _userRepository.GetProgressByUser(userId) ?? throw new NotFoundException("User progress not found");
             return userProgress.Select(progress => new UserProgressDto
             {
                 Id = progress.Id,
@@ -41,13 +42,13 @@ namespace users_service.Src.Services
             var validSubjects = await _subjectRepository.GetAll();
             var subjectsToAdd = subjects.AddSubjects.Select(code =>
             {
-                var subject = validSubjects.FirstOrDefault(s => s.Code == code) ?? throw new Exception($"Subject with code {code} not found");
+                var subject = validSubjects.FirstOrDefault(s => s.Code == code) ?? throw new NotFoundException($"Subject with code {code} not found");
                 return subject.Id;
             }).ToList();
 
             var subjectsToDelete = subjects.DeleteSubjects.Select(code =>
             {
-                var subject = validSubjects.FirstOrDefault(s => s.Code == code) ?? throw new Exception($"Subject with code {code} not found");
+                var subject = validSubjects.FirstOrDefault(s => s.Code == code) ?? throw new NotFoundException($"Subject with code {code} not found");
                 return subject.Id;
             }).ToList();
 
@@ -58,7 +59,7 @@ namespace users_service.Src.Services
                 var foundUserProgress = userProgress?.FirstOrDefault(up => up.Subject.Id == subjectId);
 
                 if (foundUserProgress is not null)
-                    throw new Exception($"Subject with Code: {foundUserProgress.Subject.Code} already exists");
+                    throw new BadRequestException($"Subject with Code: {foundUserProgress.Subject.Code} already exists");
 
                 return new UserProgress()
                 {
@@ -70,7 +71,7 @@ namespace users_service.Src.Services
             var progressToRemove = subjectsToDelete.Select(subjectId =>
             {
                 if (userProgress?.FirstOrDefault(up => up.SubjectId == subjectId) is null)
-                    throw new Exception($"Subject with ID: {subjectId} not found");
+                    throw new NotFoundException($"Subject with ID: {subjectId} not found");
 
                 return new UserProgress()
                 {
@@ -82,7 +83,7 @@ namespace users_service.Src.Services
             var addResult = await _userRepository.AddProgress(progressToAdd);
             var removeResult = await _userRepository.RemoveProgress(progressToRemove, userId);
             if (!removeResult && !addResult)
-                throw new Exception("Cannot update user progress");
+                throw new BadRequestException("Cannot update user progress");
             
         }
 

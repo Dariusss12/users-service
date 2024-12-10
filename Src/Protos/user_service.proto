@@ -17,8 +17,8 @@ message GetUserByIdRequest {
 message GetUserByIdResponse {
     int32 id = 1;
     string name = 2;
-    string first_last_name = 3;
-    string second_last_name = 4;
+    string firstLastName = 3;
+    string secondLastName = 4;
     string rut = 5;
     string email = 6;
     Career career = 7;
@@ -27,8 +27,8 @@ message GetUserByIdResponse {
 message EditUserRequest {
     int32 id = 1;
     string name = 2;
-    string first_last_name = 3;
-    string second_last_name = 4;
+    string firstLastName = 3;
+    string secondLastName = 4;
 }
 
 message EditUserResponse {
@@ -36,7 +36,7 @@ message EditUserResponse {
 }
 
 message GetProgressByUserRequest {
-    int32 user_id = 1;
+    int32 userId = 1;
 }
 
 message GetProgressByUserResponse {
@@ -49,9 +49,9 @@ message UserProgress {
 }
 
 message SetUserProgressRequest {
-    int32 user_id = 1;
-    repeated string add_subjects = 2;
-    repeated string delete_subjects = 3;
+    int32 userId = 1;
+    repeated string addSubjects = 2;
+    repeated string deleteSubjects = 3;
 }
 
 message SetUserProgressResponse {
