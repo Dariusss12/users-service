@@ -11,8 +11,8 @@ builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+
+app.UseAuthorization();
 app.MapGrpcService<UserServiceGrpc>();
 app.MapGet("/", () => "Communication with gRPC!");
 

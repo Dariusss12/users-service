@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using System.Text;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace users_service.Src.Extensions
         {
             InitEnvironmentVariables();
             AddDbContext(services);
-            //AddAuthentication(services);
+            AddAuthentication(services);
             AddGrpc(services);
             AddServices(services);
         }
@@ -44,38 +45,23 @@ namespace users_service.Src.Extensions
                 });
             });
         }
-
-/*
         private static void AddAuthentication(IServiceCollection services)
         {
-            // Configurar autenticación JWT usando la clave pública
-            var publicKeyPath = Env.GetString("JWT_PUBLIC_KEY_PATH");
+            var secret = Env.GetString("JWT_SECRET");
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            services.AddAuthentication().AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Env.GetString("JWT_ISSUER"),
-                        ValidAudience = Env.GetString("JWT_AUDIENCE"),
-                        IssuerSigningKey = new RsaSecurityKey(GetRsaPublicKey(publicKeyPath))
-                    };
-                });
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                        secret
+                    ))
+                };
+            });
         }
-
-        private static RSA GetRsaPublicKey(string publicKeyPath)
-        {
-            // Cargar la clave pública desde el archivo especificado
-            var publicKeyPem = File.ReadAllText(publicKeyPath);
-            var rsa = RSA.Create();
-            rsa.ImportFromPem(publicKeyPem);
-            return rsa;
-        }
-        */
 
         private static void AddGrpc(IServiceCollection services)
         {

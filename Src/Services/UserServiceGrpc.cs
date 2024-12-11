@@ -3,6 +3,7 @@ using UsersServiceProto;
 using users_service.Src.Services.Interfaces;
 using users_service.Src.DTOs;
 using users_service.Src.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 
 public class UserServiceGrpc : UserService.UserServiceBase
@@ -14,6 +15,7 @@ public class UserServiceGrpc : UserService.UserServiceBase
         _userService = userService;
     }
 
+    [Authorize]
     public override async Task<GetUserByIdResponse> GetUserById(GetUserByIdRequest request, ServerCallContext context)
     {
         try
@@ -42,6 +44,7 @@ public class UserServiceGrpc : UserService.UserServiceBase
 
     }
 
+    [Authorize]
     public override async Task<EditUserResponse> EditUser(EditUserRequest request, ServerCallContext context)
     {
 
@@ -68,6 +71,7 @@ public class UserServiceGrpc : UserService.UserServiceBase
     }
 
 
+    [Authorize]
     public override async Task<GetProgressByUserResponse> GetProgressByUser(GetProgressByUserRequest request, ServerCallContext context)
     {
         try{
@@ -87,6 +91,7 @@ public class UserServiceGrpc : UserService.UserServiceBase
 
     }
 
+    [Authorize]
     public override async Task<SetUserProgressResponse> SetUserProgress(SetUserProgressRequest request, ServerCallContext context)
     {
         try{
@@ -111,6 +116,7 @@ public class UserServiceGrpc : UserService.UserServiceBase
         
     }
 
+    [Authorize]
     private static List<string> ValidateEditUserRequest(EditUserRequest request)
     {
         var errors = new List<string>();
