@@ -12,7 +12,7 @@
     "GrpcService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "applicationUrl": "https://users-service-ylm6.onrender.com",
+      "applicationUrl": "https://localhost:50051",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
