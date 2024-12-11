@@ -2,15 +2,10 @@ using users_service.Src.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";  // Si no se encuentra la variable, usa 5000 como predeterminado
-
-// Configurar Kestrel para escuchar en el puerto de Render (o el puerto por defecto)
-builder.WebHost.UseKestrel(options =>
+builder.WebHost.ConfigureKestrel((context, options) =>
 {
-    options.ListenAnyIP(int.Parse(port), listenOptions =>
-    {
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2; // gRPC necesita HTTP/2
-    });
+    // Cargar la configuración de Kestrel desde appsettings.json
+    options.Configure(context.Configuration.GetSection("Kestrel"));
 });
 
 // Add services to the container.
@@ -25,7 +20,7 @@ var app = builder.Build();
 //app.UseAuthentication();
 //app.UseAuthorization();
 app.MapGrpcService<UserServiceGrpc>();
-app.MapControllers();
+app.MapGet("/", () => "Communication with gRPC!");
 
 AppSeedService.SeedDatabase(app);
 
