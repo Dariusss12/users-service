@@ -15,6 +15,12 @@ namespace users_service.Src.Repositories
             _context = context;
         }
 
+        public async Task CreateUser(User user)
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<User?> GetUserById(int id)
         {
             var user = await _context.Users.Where(u => u.Id == id).Include(u => u.Career).FirstOrDefaultAsync();
@@ -65,5 +71,7 @@ namespace users_service.Src.Repositories
 
             return result;
         }
+
+
     }
 }

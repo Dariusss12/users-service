@@ -16,6 +16,21 @@ namespace users_service.Src.Services
             _userRepository = userRepository;
             _subjectRepository = subjectRepository;
         }
+
+        public async Task CreateUser(CreateUserDto user)
+        {
+            await _userRepository.CreateUser(new User
+            {
+                Id = user.Id,
+                Name = user.Name,
+                FirstLastName = user.FirstLastName,
+                SecondLastName = user.SecondLastName,
+                Rut = user.Rut,
+                Email = user.Email,
+                CareerId = user.CareerId,
+            });
+        }
+
         public async Task<User> GetById(int id)
         {
             var user = await _userRepository.GetUserById(id) ?? throw new NotFoundException("User not found");

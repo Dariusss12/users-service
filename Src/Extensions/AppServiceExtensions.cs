@@ -1,9 +1,11 @@
 using System.Security.Cryptography;
 using System.Text;
 using DotNetEnv;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using users_service.Src.Consumers;
 using users_service.Src.Data;
 using users_service.Src.Repositories;
 using users_service.Src.Repositories.Interfaces;
@@ -20,7 +22,9 @@ namespace users_service.Src.Extensions
             AddDbContext(services);
             AddAuthentication(services);
             AddGrpc(services);
+            AddMassTransit(services);
             AddServices(services);
+            
         }
 
         private static void InitEnvironmentVariables()
@@ -67,6 +71,28 @@ namespace users_service.Src.Extensions
         {
             // Agregar soporte para gRPC
             services.AddGrpc();
+        }
+
+        private static void AddMassTransit(IServiceCollection services)
+        {
+            // Agregar soporte para MassTransit
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<CreateUserMessageConsumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("localhost", "/", h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+
+                    cfg.ReceiveEndpoint("create-user-queue", ep =>
+                    {
+                        ep.ConfigureConsumer<CreateUserMessageConsumer>(context);
+                    });
+                });
+            });
         }
 
         private static void AddServices(IServiceCollection services)

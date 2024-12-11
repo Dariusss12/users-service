@@ -7,6 +7,8 @@ namespace users_service.Src.Repositories.Interfaces
     {
         Task<User?> GetUserById(int id);
 
+        Task CreateUser(User user);
+
         Task<bool> EditUser(int id, EditUserDto user);
 
         public Task<List<UserProgress>?> GetProgressByUser(int userId);
