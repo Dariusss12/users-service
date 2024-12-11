@@ -1,4 +1,4 @@
-using System.Security.Cryptography;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using DotNetEnv;
 using MassTransit;
@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using users_service.Src.Consumers;
 using users_service.Src.Data;
+using users_service.Src.Helpers;
 using users_service.Src.Repositories;
 using users_service.Src.Repositories.Interfaces;
 using users_service.Src.Services;
@@ -20,10 +21,10 @@ namespace users_service.Src.Extensions
         {
             InitEnvironmentVariables();
             AddDbContext(services);
+            AddServices(services);
             AddAuthentication(services);
             AddGrpc(services);
             AddMassTransit(services);
-            AddServices(services);
             
         }
 
@@ -64,13 +65,30 @@ namespace users_service.Src.Extensions
                         secret
                     ))
                 };
+                options.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context =>
+                    {
+                        var blacklistService = context.HttpContext.RequestServices.GetRequiredService<IBlacklistService>();
+
+                        if (context.SecurityToken is JwtSecurityToken token && blacklistService.IsBlacklisted(token.RawData))
+                        {
+                            context.Fail("Token is blacklisted");
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
             });
         }
 
         private static void AddGrpc(IServiceCollection services)
         {
             // Agregar soporte para gRPC
-            services.AddGrpc();
+            services.AddGrpc(options =>
+            {
+                options.Interceptors.Add<BlacklistInterceptor>(); // Añadir el interceptor
+            });
         }
 
         private static void AddMassTransit(IServiceCollection services)
@@ -79,6 +97,7 @@ namespace users_service.Src.Extensions
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<CreateUserMessageConsumer>();
+                x.AddConsumer<TokenToBlacklistConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host("localhost", "/", h =>
@@ -91,6 +110,11 @@ namespace users_service.Src.Extensions
                     {
                         ep.ConfigureConsumer<CreateUserMessageConsumer>(context);
                     });
+
+                    cfg.ReceiveEndpoint("token-blacklist-queue", ep =>
+                    {
+                        ep.ConfigureConsumer<TokenToBlacklistConsumer>(context);
+                    });
                 });
             });
         }
@@ -101,6 +125,7 @@ namespace users_service.Src.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<IBlacklistService, BlacklistService>();
         }
     }
 }

@@ -4,15 +4,13 @@ option csharp_namespace = "UsersServiceProto";
 
 
 service UserService {
-    rpc GetUserById (GetUserByIdRequest) returns (GetUserByIdResponse);
+    rpc GetUserById (Empty) returns (GetUserByIdResponse);
     rpc EditUser (EditUserRequest) returns (EditUserResponse);
-    rpc GetProgressByUser (GetProgressByUserRequest) returns (GetProgressByUserResponse);
+    rpc GetProgressByUser (Empty) returns (GetProgressByUserResponse);
     rpc SetUserProgress (SetUserProgressRequest) returns (SetUserProgressResponse);
 }
 
-message GetUserByIdRequest {
-    int32 id = 1; // ID del usuario
-}
+message Empty {}
 
 message GetUserByIdResponse {
     int32 id = 1;
@@ -25,7 +23,6 @@ message GetUserByIdResponse {
 }
 
 message EditUserRequest {
-    int32 id = 1;
     string name = 2;
     string firstLastName = 3;
     string secondLastName = 4;
@@ -33,10 +30,6 @@ message EditUserRequest {
 
 message EditUserResponse {
     bool success = 1;
-}
-
-message GetProgressByUserRequest {
-    int32 userId = 1;
 }
 
 message GetProgressByUserResponse {
@@ -49,7 +42,6 @@ message UserProgress {
 }
 
 message SetUserProgressRequest {
-    int32 userId = 1;
     repeated string addSubjects = 2;
     repeated string deleteSubjects = 3;
 }

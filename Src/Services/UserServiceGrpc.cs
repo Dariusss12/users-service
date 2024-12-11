@@ -4,6 +4,7 @@ using users_service.Src.Services.Interfaces;
 using users_service.Src.DTOs;
 using users_service.Src.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Sprache;
 
 
 public class UserServiceGrpc : UserService.UserServiceBase
@@ -16,11 +17,18 @@ public class UserServiceGrpc : UserService.UserServiceBase
     }
 
     [Authorize]
-    public override async Task<GetUserByIdResponse> GetUserById(GetUserByIdRequest request, ServerCallContext context)
+    public override async Task<GetUserByIdResponse> GetUserById(Empty request, ServerCallContext context)
     {
         try
         {
-            var user = await _userService.GetById(request.Id);
+            var userIdClaim = context.GetHttpContext().User.FindFirst("Id")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                throw new RpcException(new Status(StatusCode.Unauthenticated, "User ID not found in token"));
+            }
+
+            var userId = int.Parse(userIdClaim);
+            var user = await _userService.GetById(userId);
 
             return new GetUserByIdResponse
             {
@@ -48,6 +56,14 @@ public class UserServiceGrpc : UserService.UserServiceBase
     public override async Task<EditUserResponse> EditUser(EditUserRequest request, ServerCallContext context)
     {
 
+        var userIdClaim = context.GetHttpContext().User.FindFirst("Id")?.Value;
+        if (string.IsNullOrEmpty(userIdClaim))
+        {
+            throw new RpcException(new Status(StatusCode.Unauthenticated, "User ID not found in token"));
+        }
+
+        var userId = int.Parse(userIdClaim);
+
         var errors = ValidateEditUserRequest(request);
 
         if (errors.Count > 0)
@@ -55,7 +71,7 @@ public class UserServiceGrpc : UserService.UserServiceBase
             throw new RpcException(new Status(StatusCode.InvalidArgument, string.Join(" ", errors)));
         }
 
-        var success = await _userService.EditUser(request.Id, new EditUserDto
+        var success = await _userService.EditUser(userId, new EditUserDto
         {
             Name = request.Name,
             FirstLastName = request.FirstLastName,
@@ -72,10 +88,17 @@ public class UserServiceGrpc : UserService.UserServiceBase
 
 
     [Authorize]
-    public override async Task<GetProgressByUserResponse> GetProgressByUser(GetProgressByUserRequest request, ServerCallContext context)
+    public override async Task<GetProgressByUserResponse> GetProgressByUser(Empty request, ServerCallContext context)
     {
         try{
-            var progress = await _userService.GetProgressByUser(request.UserId);
+            var userIdClaim = context.GetHttpContext().User.FindFirst("Id")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                throw new RpcException(new Status(StatusCode.Unauthenticated, "User ID not found in token"));
+            }
+
+            var userId = int.Parse(userIdClaim);
+            var progress = await _userService.GetProgressByUser(userId);
             var response = new GetProgressByUserResponse();
             response.Progress.AddRange(progress.Select(p => new UserProgress
             {
@@ -95,11 +118,18 @@ public class UserServiceGrpc : UserService.UserServiceBase
     public override async Task<SetUserProgressResponse> SetUserProgress(SetUserProgressRequest request, ServerCallContext context)
     {
         try{
+            var userIdClaim = context.GetHttpContext().User.FindFirst("Id")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                throw new RpcException(new Status(StatusCode.Unauthenticated, "User ID not found in token"));
+            }
+
+            var userId = int.Parse(userIdClaim);
             await _userService.SetUserProgress(new UpdateUserProgressDto
             {
                 AddSubjects = [.. request.AddSubjects],
                 DeleteSubjects = [.. request.DeleteSubjects]
-            }, request.UserId);
+            }, userId);
 
             return new SetUserProgressResponse { Success = true };
 
@@ -116,7 +146,6 @@ public class UserServiceGrpc : UserService.UserServiceBase
         
     }
 
-    [Authorize]
     private static List<string> ValidateEditUserRequest(EditUserRequest request)
     {
         var errors = new List<string>();
