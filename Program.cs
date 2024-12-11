@@ -2,15 +2,11 @@ using users_service.Src.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-builder.WebHost.ConfigureKestrel(options =>
+builder.WebHost.ConfigureKestrel((context, options) =>
 {
-    options.ListenAnyIP(int.Parse(port), listenOptions =>
-    {
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
-    });
+    // Cargar la configuración de Kestrel desde appsettings.json
+    options.Configure(context.Configuration.GetSection("Kestrel"));
 });
-Console.WriteLine($"Server running on port {port}");
 
 // Add services to the container.
 builder.Services.AddControllers();

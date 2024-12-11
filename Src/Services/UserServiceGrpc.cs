@@ -2,7 +2,6 @@ using Grpc.Core;
 using UsersServiceProto;
 using users_service.Src.Services.Interfaces;
 using users_service.Src.DTOs;
-using Microsoft.AspNetCore.Http.HttpResults;
 using users_service.Src.Helpers;
 
 

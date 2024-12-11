@@ -80,7 +80,11 @@ namespace users_service.Src.Extensions
         private static void AddGrpc(IServiceCollection services)
         {
             // Agregar soporte para gRPC
-            services.AddGrpc();
+            services.AddGrpc(options =>
+            {
+                options.MaxReceiveMessageSize = 20 * 1024 * 1024; // 20 MB, puedes ajustarlo según sea necesario
+                options.MaxSendMessageSize = 20 * 1024 * 1024;    // 20 MB
+            });
         }
 
         private static void AddServices(IServiceCollection services)
