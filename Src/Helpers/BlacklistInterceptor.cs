@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
-using users_service.Src.Repositories.Interfaces;
+using users_service.Src.Services.Interfaces;
 
 namespace users_service.Src.Helpers
 {

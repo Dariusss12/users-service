@@ -1,6 +1,6 @@
 using MassTransit;
 using Shared.Messages;
-using users_service.Src.Repositories.Interfaces;
+using users_service.Src.Services.Interfaces;
 
 
 namespace users_service.Src.Consumers
