@@ -65,20 +65,6 @@ namespace users_service.Src.Extensions
                         secret
                     ))
                 };
-                options.Events = new JwtBearerEvents
-                {
-                    OnTokenValidated = context =>
-                    {
-                        var blacklistService = context.HttpContext.RequestServices.GetRequiredService<IBlacklistService>();
-
-                        if (context.SecurityToken is JwtSecurityToken token && blacklistService.IsBlacklisted(token.RawData))
-                        {
-                            context.Fail("Token is blacklisted");
-                        }
-
-                        return Task.CompletedTask;
-                    }
-                };
             });
         }
 
