@@ -29,7 +29,13 @@ message EditUserRequest {
 }
 
 message EditUserResponse {
-    bool success = 1;
+    int32 id = 1;
+    string name = 2;
+    string firstLastName = 3;
+    string secondLastName = 4;
+    string rut = 5;
+    string email = 6;
+    Career career = 7;
 }
 
 message GetProgressByUserResponse {

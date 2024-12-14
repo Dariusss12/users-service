@@ -39,9 +39,10 @@ namespace users_service.Src.Services
             return user;
         }
 
-        public async Task<bool> EditUser(int id, EditUserDto user)
+        public async Task<User?> EditUser(int id, EditUserDto user)
         {
-            return await _userRepository.EditUser(id, user);
+            var userEdited = await _userRepository.EditUser(id, user) ?? throw new NotFoundException("User not found");
+            return userEdited;
         }
 
         public async Task<List<UserProgress>> GetProgressByUser(int userId)

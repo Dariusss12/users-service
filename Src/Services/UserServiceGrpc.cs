@@ -56,34 +56,60 @@ public class UserServiceGrpc : UserService.UserServiceBase
     public override async Task<EditUserResponse> EditUser(EditUserRequest request, ServerCallContext context)
     {
 
-        var userIdClaim = context.GetHttpContext().User.FindFirst("Id")?.Value;
-        if (string.IsNullOrEmpty(userIdClaim))
-        {
-            throw new RpcException(new Status(StatusCode.Unauthenticated, "User ID not found in token"));
+        try{
+
+            var userIdClaim = context.GetHttpContext().User.FindFirst("Id")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                throw new RpcException(new Status(StatusCode.Unauthenticated, "User ID not found in token"));
+            }
+
+            var userId = int.Parse(userIdClaim);
+
+            var errors = ValidateEditUserRequest(request);
+
+            if (errors.Count > 0)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, string.Join(" ", errors)));
+            }
+            
+            var user = await _userService.EditUser(userId, new EditUserDto
+            {
+                Name = request.Name,
+                FirstLastName = request.FirstLastName,
+                SecondLastName = request.SecondLastName
+            });
+
+            return user != null ? new EditUserResponse{
+                Id = user.Id,
+                Name = user.Name,
+                FirstLastName = user.FirstLastName,
+                SecondLastName = user.SecondLastName,
+                Rut = user.Rut,
+                Email = user.Email,
+                Career = new Career
+                {
+                    Id = user.Career.Id,
+                    Name = user.Career.Name
+                }
+            } : new EditUserResponse{
+                Id = 0,
+                Name = "",
+                FirstLastName = "",
+                SecondLastName = "",
+                Rut = "",
+                Email = "",
+                Career = new Career
+                {
+                    Id = 0,
+                    Name = ""
+                }
+            };
         }
-
-        var userId = int.Parse(userIdClaim);
-
-        var errors = ValidateEditUserRequest(request);
-
-        if (errors.Count > 0)
+        catch (NotFoundException notFound)
         {
-            throw new RpcException(new Status(StatusCode.InvalidArgument, string.Join(" ", errors)));
+            throw new RpcException(new Status(StatusCode.NotFound, notFound.Message));
         }
-
-        var success = await _userService.EditUser(userId, new EditUserDto
-        {
-            Name = request.Name,
-            FirstLastName = request.FirstLastName,
-            SecondLastName = request.SecondLastName
-        });
-
-        if(!success)
-        {
-            throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
-        }
-
-        return new EditUserResponse { Success = success };
     }
 
     [Authorize]

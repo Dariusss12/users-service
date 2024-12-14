@@ -27,12 +27,12 @@ namespace users_service.Src.Repositories
             return user;
         }
 
-        public async Task<bool> EditUser(int id, EditUserDto user)
+        public async Task<User?> EditUser(int id, EditUserDto user)
         {
-            var userToEdit = await _context.Users.FindAsync(id);
+            var userToEdit = await _context.Users.Where(u => u.Id == id).Include(u => u.Career).FirstOrDefaultAsync();
             if (userToEdit == null)
             {
-                return false;
+                return null;
             }
 
             userToEdit.Name = !string.IsNullOrEmpty(user.Name) ? user.Name : userToEdit.Name;
@@ -41,7 +41,7 @@ namespace users_service.Src.Repositories
 
             _context.Users.Update(userToEdit);
             await _context.SaveChangesAsync();
-            return true;
+            return userToEdit;
 
         }
 
