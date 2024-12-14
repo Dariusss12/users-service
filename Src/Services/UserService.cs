@@ -58,13 +58,13 @@ namespace users_service.Src.Services
             var validSubjects = await _subjectRepository.GetAll();
             var subjectsToAdd = subjects.AddSubjects.Select(code =>
             {
-                var subject = validSubjects.FirstOrDefault(s => s.Code == code) ?? throw new NotFoundException($"Subject with code {code} not found");
+                var subject = validSubjects.FirstOrDefault(s => s.Code == code.ToLower()) ?? throw new NotFoundException($"Subject with code {code} not found");
                 return subject.Id;
             }).ToList();
 
             var subjectsToDelete = subjects.DeleteSubjects.Select(code =>
             {
-                var subject = validSubjects.FirstOrDefault(s => s.Code == code) ?? throw new NotFoundException($"Subject with code {code} not found");
+                var subject = validSubjects.FirstOrDefault(s => s.Code == code.ToLower()) ?? throw new NotFoundException($"Subject with code {code} not found");
                 return subject.Id;
             }).ToList();
 
