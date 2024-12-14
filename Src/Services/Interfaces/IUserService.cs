@@ -8,7 +8,7 @@ namespace users_service.Src.Services.Interfaces
         public Task CreateUser(CreateUserDto user);
         public Task<User> GetById(int id);
         public Task<bool> EditUser(int id, EditUserDto user);
-        public Task<List<UserProgressDto>> GetProgressByUser(int userId);
+        public Task<List<UserProgress>> GetProgressByUser(int userId);
         public Task SetUserProgress(UpdateUserProgressDto subjects, int userId);
         
     }

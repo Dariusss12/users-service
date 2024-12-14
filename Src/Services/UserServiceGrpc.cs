@@ -103,7 +103,7 @@ public class UserServiceGrpc : UserService.UserServiceBase
             response.Progress.AddRange(progress.Select(p => new UserProgress
             {
                 Id = p.Id,
-                SubjectCode = p.SubjectCode
+                SubjectCode = p.Subject.Code,
             }));
             return response;
         }

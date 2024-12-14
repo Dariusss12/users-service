@@ -42,14 +42,10 @@ namespace users_service.Src.Services
             return await _userRepository.EditUser(id, user);
         }
 
-        public async Task<List<UserProgressDto>> GetProgressByUser(int userId)
+        public async Task<List<UserProgress>> GetProgressByUser(int userId)
         {
             var userProgress = await _userRepository.GetProgressByUser(userId) ?? throw new NotFoundException("User progress not found");
-            return userProgress.Select(progress => new UserProgressDto
-            {
-                Id = progress.Id,
-                SubjectCode = progress.Subject.Code,
-            }).ToList();
+            return userProgress;
         }
 
         public async Task SetUserProgress(UpdateUserProgressDto subjects, int userId)
