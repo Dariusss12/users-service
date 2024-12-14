@@ -1,32 +1,13 @@
 syntax = "proto3";
 
-import "Src/google/api/annotations.proto";
-
 option csharp_namespace = "UsersServiceProto";
 
+
 service UserService {
-    rpc GetUserById (Empty) returns (GetUserByIdResponse) {
-        option (google.api.http) = {
-            get: "/v1/user"
-        };
-    }
-    rpc EditUser (EditUserRequest) returns (EditUserResponse) {
-        option (google.api.http) = {
-            put: "/v1/user"
-            body: "*"
-        };
-    }
-    rpc GetProgressByUser (Empty) returns (GetProgressByUserResponse) {
-        option (google.api.http) = {
-            get: "/v1/user/progress"
-        };
-    }
-    rpc SetUserProgress (SetUserProgressRequest) returns (SetUserProgressResponse) {
-        option (google.api.http) = {
-            post: "/v1/user/progress"
-            body: "*"
-        };
-    }
+    rpc GetUserById (Empty) returns (GetUserByIdResponse);
+    rpc EditUser (EditUserRequest) returns (EditUserResponse);
+    rpc GetProgressByUser (Empty) returns (GetProgressByUserResponse);
+    rpc SetUserProgress (SetUserProgressRequest) returns (SetUserProgressResponse);
 }
 
 message Empty {}
