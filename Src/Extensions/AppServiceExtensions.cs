@@ -74,6 +74,10 @@ namespace users_service.Src.Extensions
             services.AddGrpc(options =>
             {
                 options.Interceptors.Add<BlacklistInterceptor>(); // Añadir el interceptor
+            })
+            .AddJsonTranscoding(o =>
+            {
+                o.JsonSettings.WriteIndented = true; // Configuración de JSON con formato legible
             });
         }
 
