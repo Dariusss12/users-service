@@ -86,7 +86,6 @@ public class UserServiceGrpc : UserService.UserServiceBase
         return new EditUserResponse { Success = success };
     }
 
-
     [Authorize]
     public override async Task<GetProgressByUserResponse> GetProgressByUser(Empty request, ServerCallContext context)
     {

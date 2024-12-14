@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+using Grpc.Core;
 using users_service.Src.DTOs;
 using users_service.Src.Helpers;
 using users_service.Src.Models;
@@ -50,6 +52,8 @@ namespace users_service.Src.Services
 
         public async Task SetUserProgress(UpdateUserProgressDto subjects, int userId)
         {
+            ValidateSubjectCodes(subjects.AddSubjects, "AddSubjects");
+            ValidateSubjectCodes(subjects.DeleteSubjects, "DeleteSubjects");
             var validSubjects = await _subjectRepository.GetAll();
             var subjectsToAdd = subjects.AddSubjects.Select(code =>
             {
@@ -96,6 +100,19 @@ namespace users_service.Src.Services
             if (!removeResult && !addResult)
                 throw new BadRequestException("Cannot update user progress");
             
+        }
+
+        public static void ValidateSubjectCodes(IEnumerable<string> subjectCodes, string fieldName)
+        {
+            foreach (var code in subjectCodes)
+            {
+                if (!Regex.IsMatch(code, @"^[A-Za-z]{3}-\d{3}$"))
+                {
+                    throw new RpcException(new Status(
+                        StatusCode.InvalidArgument,
+                        $"Invalid format in {fieldName}: {code}. Each subject code must match LLL-NNN."));
+                }
+            }
         }
 
 
