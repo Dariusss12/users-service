@@ -27,7 +27,7 @@ Follow these steps to get the project up and running on your local machine:
      cd user-service
      ```
    
-5. Inside the folder Cubitwelve create a file and call it .env then fill with the following example values.
+5. Inside the folder user-service create a file and call it .env then fill with the following example values.
       ```bash
       DB_CONNECTION="Host=your_postgre_host;Port=5432;Database=your_postgre_database;Username=your_postgre_user;Password=your_postgre_password
       JWT_SECRET=your_super_secret_key
