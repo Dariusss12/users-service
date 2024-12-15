@@ -97,7 +97,7 @@ namespace users_service.Src.Extensions
                         ep.ConfigureConsumer<CreateUserMessageConsumer>(context);
                     });
 
-                    cfg.ReceiveEndpoint("token-blacklist-queue", ep =>
+                    cfg.ReceiveEndpoint("token-blacklist-queue-2", ep =>
                     {
                         ep.ConfigureConsumer<TokenToBlacklistConsumer>(context);
                     });

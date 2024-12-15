@@ -16,6 +16,7 @@ namespace users_service.Src.Consumers
         public async Task Consume(ConsumeContext<CreateUserMessage> context)
         {
             var Messages = context.Message;
+            Console.WriteLine($"Received CreateUserMessage: {Messages.User.Email}");
             await _userService.CreateUser(Messages.User);
         }
     }
